@@ -47,12 +47,18 @@ class Game
   end
 
   def turn
+    puts 'Enter a move (1-9): '
     move = current_player.move(nil)
-    turn unless @board.valid_move?(move)
+    unless @board.valid_move?(move)
+      turn
+      return nil
+    end
     @board.update(move, current_player)
+    @board.display
   end
 
   def play
+    @board.display
     turn until over?
     puts draw? ? "Cat's Game!" : "Congratulations #{winner}!"
   end
